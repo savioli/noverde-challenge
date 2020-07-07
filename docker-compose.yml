@@ -1,0 +1,64 @@
+version: '3.7'
+
+services:
+  api:
+    container_name: api
+    restart: always
+    build: ./src
+    ports:
+      - "8000:8000"
+    command: gunicorn -w 1 -b 0.0.0.0:8000 wsgi:server
+    env_file:
+      - ./dev.env
+    depends_on:
+      - mongodb
+      - rabbit
+
+  nginx:
+    container_name: nginx
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+
+  mongodb:
+    image: mongo:4.0.8
+    container_name: mongodb
+    restart: always
+
+  rabbit:
+      container_name: rabbit
+      image: rabbitmq:3-management
+      env_file:
+        - ./dev.env
+      ports:
+          - "5673:5672"
+
+  worker:
+    container_name: worker
+    restart: always
+    build: ./src
+    command: celery -A tasks.worker worker --concurrency=1 --loglevel=info
+    env_file:
+      - ./dev.env
+
+  redis:
+    container_name: redis
+    restart: always
+    image: redis
+    env_file:
+      - ./dev.env
+
+  flower:
+    container_name: flower
+    restart: always
+    image: zoomeranalytics/flower:0.9.1-4.0.2
+    env_file:
+      - ./dev.env
+    restart: "always"
+    ports:
+      - "5555:5555"
+    depends_on:
+      - rabbit
