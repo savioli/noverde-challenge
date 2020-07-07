@@ -1,4 +1,4 @@
--
+
 # noverde-challenge
 Noverde Challenge - Senior Software Engineer
 
@@ -34,7 +34,7 @@ O próprio **Vagrant** se encarregará de iniciar todo o ambiente.
 vagrant up
 ```
 
-Além do Vagrant é necessário ter instalado plugin **vagrant-docker-compose**. Caso não esteja instalado, é possível instalá-lo através do comando abaixo:
+Além do Vagrant é necessário ter instalado o plugin **vagrant-docker-compose**. Caso não esteja instalado, é possível instalá-lo através do comando abaixo:
 
 ```bash
 vagrant plugin install vagrant-docker-compose
@@ -87,12 +87,12 @@ O monitoramento da fila com **Celery Flower** ficará disponível em:
 
 ## Worker para Execução de Tarefas Celery
 
-Ao inicializar a aplicação com **Vagrant** ou **Docker Compose** um container executará automaticamente para executar as tarefas enviadas para a fila.
+Ao inicializar a aplicação com **Vagrant** ou **Docker Compose** um container será provisionado automaticamente para executar as tarefas enviadas para a fila.
 
 
 ## Testes Unitários
 
-Os testes podem ser executados em através do comando
+Os testes podem ser executados através do comando
 
 ```bash
 # Caso o pip não esteja instalado
@@ -104,9 +104,6 @@ pip3 install --no-cache-dir -r src/requirements.txt
 # Para executar os testes
 python3 -m unittest discover tests
 ```
-
-
-
 
 ## Informações para Contato
 
