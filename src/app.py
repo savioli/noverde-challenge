@@ -2,11 +2,12 @@ import os
 import json
 
 from flask import Flask
+from flask_cors import CORS
 from controllers import LoanRequestController
 
-# application.config["MONGO_URI"] = 'mongodb://' + os.environ['MONGODB_USERNAME'] + ':' + os.environ['MONGODB_PASSWORD'] + '@' + os.environ['MONGODB_HOSTNAME'] + ':27017/' + os.environ['MONGODB_DATABASE']
-
 server = Flask(__name__)
+
+CORS(server)
 
 # Gets the environment variables and passes to the configuration
 
@@ -32,19 +33,11 @@ server.config['MONGODB_HOSTNAME'] = os.environ['MONGODB_HOSTNAME']
 
 # Redis Configuration
 server.config['REDIS_HOSTNAME'] = os.environ['REDIS_HOSTNAME']
-# server.config['MONGO_INITDB_ROOT_USERNAME'] = os.environ['MONGO_INITDB_ROOT_USERNAME']
-# server.config['MONGO_INITDB_ROOT_PASSWORD'] = os.environ['MONGO_INITDB_ROOT_USERNAME']
-# server.config['MONGODB_DATABASE'] = os.environ['MONGODB_DATABASE']
-# server.config['MONGO_INITDB_DATABASE'] = os.environ['MONGO_INITDB_DATABASE']
 
 # RabbitMQ
 server.config['RABBITMQ_DEFAULT_USER'] = os.environ['RABBITMQ_DEFAULT_USER']
 server.config['RABBITMQ_DEFAULT_PASS'] = os.environ['RABBITMQ_DEFAULT_PASS']
 server.config['RABBITMQ_HOSTNAME'] = os.environ['RABBITMQ_HOSTNAME']
-
-# Celery Flower
-# server.config['CELERY_BROKER'] = os.environ['CELERY_BROKER']
-# server.config['FLOWER_BROKER'] = os.environ['FLOWER_BROKER']
 
 server.secret_key = os.environ['SECRET_KEY']
 

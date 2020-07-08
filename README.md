@@ -15,7 +15,7 @@ Solução do desafio proposto em [noverde/challenge](https://github.com/noverde/
 
 #### Observação
 
-Antes de executar qualquer comando para iniciar a aplicação configure a variável **X_API_KEY** definindo uma chave de API válida, por exemplo:
+Antes de executar qualquer comando para iniciar a aplicação configure a variável **X_API_KEY** dentro do arquivo **dev.env** definindo uma chave de API válida, por exemplo:
 
 
 ```bash

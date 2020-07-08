@@ -29,8 +29,28 @@ class LoanRequestController(MethodView):
 
         if request.method == 'POST':
 
-            request_params = request.form
+            if request.is_json:            
+                
+                try:
+                    
+                    # Try to get the json
 
+                    request_params = request.json
+
+                except Exception as e:
+
+                    # If something happens when converting the content to json
+
+                    json_response = ['Invalid json']
+
+                    json_response = json.dumps(json_response)
+
+                    return (json_response, 400, {'Content-Type': 'application/json'})
+
+            else:
+
+                request_params = request.form
+            
         else:
 
             request_params = request.args
@@ -63,6 +83,11 @@ class LoanRequestController(MethodView):
             for key in mandatory_fields:
 
                 params[key] = request_params.get(key)
+                
+                if not isinstance(params[key],str):
+                
+                    params[key] = str(params[key])
+                
                 params[key] = params[key].strip()
 
             # Removes the dots and the hyphen from the CPF if it's present
@@ -142,7 +167,7 @@ class LoanRequestController(MethodView):
 
                     json_response = ['Internal Error']
 
-                    json_response = json.dumps(['Internal Error'])
+                    json_response = json.dumps(json_response)
 
                     return (json_response, 500, {'Content-Type': 'application/json'})
 
@@ -164,7 +189,7 @@ class LoanRequestController(MethodView):
 
                         json_response = ['Internal Error']
 
-                        json_response = json.dumps(['Internal Error'])
+                        json_response = json.dumps(json_response)
 
                         return (json_response, 500, {'Content-Type': 'application/json'})
 
@@ -177,7 +202,7 @@ class LoanRequestController(MethodView):
 
                         json_response = ['Internal Error']
 
-                        json_response = json.dumps(['Internal Error'])
+                        json_response = json.dumps(json_response)
 
                         return (json_response, 500, {'Content-Type': 'application/json'})
 
